@@ -119,15 +119,20 @@
 
 			$scope.addMusica = function(Musica) {
 				checagem(Musica);
-
-				if($scope.musicaExisteNoSistema == false) {
-					$scope.musicas.push(Musica);
-					$('#modal1').modal('close');
-					alert("Dados Salvos com sucesso!");
+				if(Musica.nome == "" || Musica.artista == "" || Musica.anolancamento == "" || Musica.album == "" || Musica.duracao == "") {
+					Materialize.toast('Alguma informação está incorreta, verifique e tente novamente!', 2000)
 					limparFormulario();
 				} else {
-					alert("Já existe uma música com esse nome, tente novamente!");
-					limparFormulario();
+						if($scope.musicaExisteNoSistema == false) {
+						$scope.musicas.push(Musica);
+						$('#modal1').modal('close');
+						  // Materialize.toast(message, displayLength, className, completeCallback);
+	  					Materialize.toast('Dados Salvos com sucesso!', 900) // 4000 is the duration of the toast
+						limparFormulario();
+					} else {
+						Materialize.toast('A música adicionada já existe no sistema, tente novamente!', 2000)
+						limparFormulario();
+					};
 				};
 				
 			};
