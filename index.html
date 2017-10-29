@@ -45,7 +45,7 @@
 
 	</div>
 
-	<div class="table">
+	<div class="row">
 		  <!-- Modal Trigger -->
  	 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">+ Adicionar Música</a>
 	</div>
@@ -111,23 +111,47 @@
 		function($scope) {
 			$scope.titulo = "Sistema de Música";
 			$scope.musicas = [ 
-			{nome: "Musica1", artista: "ZezedeCamargo", album: "album1", anolancamento: "1998", duracao: "160"},
-			{nome: "Musica2", artista: "Noel G.", album: "album2", anolancamento: "1999", duracao: "110"},
-			{nome: "Musica3", artista: "Liam G.", album: "album3", anolancamento: "1997", duracao: "120"},
-			{nome: "Musica4", artista: "Messias", album: "album4", anolancamento: "1995", duracao: "130"}
+			{nome: "musica teste", artista: "Liam G.", album: "As you were", anolancamento: "2017", duracao: "450"}
 
 			];
 
+			$scope.musicaExisteNoSistema = false;
+
 			$scope.addMusica = function(Musica) {
-				$scope.musicas.push(Musica);
-				$('#modal1').modal('close');
-				limparFormulario();
+				checagem(Musica);
+
+				if($scope.musicaExisteNoSistema == false) {
+					$scope.musicas.push(Musica);
+					$('#modal1').modal('close');
+					alert("Dados Salvos com sucesso!");
+					limparFormulario();
+				} else {
+					alert("Já existe uma música com esse nome, tente novamente!");
+					limparFormulario();
+				};
 				
 			};
 
+			$scope.editarMusica = function(Musica) {
+				$('#modal1').modal('open');
+			};	
+
 			var limparFormulario = function() {
 				$scope.Musica = {nome: "", artista: "", album: "", anolancamento: "", duracao: ""};
+				$scope.musicaExisteNoSistema = false;
+
 			};
+
+			var checagem = function(Musica) {
+				for (var i = $scope.musicas.length - 1; i >= 0; i--) {
+					if($scope.musicas[i].nome == Musica.nome){
+						$scope.musicaExisteNoSistema = true;
+					};
+				};
+
+				return $scope.musicaExisteNoSistema;
+			};
+
 		});
 
 </script>
