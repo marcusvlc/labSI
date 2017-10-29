@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="sistema">
+<head>
+	<title>Sistema Angular</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</head>
+<body ng-controller="controlePrincipal">
+<header class="container">
+	<div class="row">
+		<h2 ng-bind="titulo"></h2>
+	</div>
+</header>
+<main class="container">
+<div class="row">
+	<input type="text" name="" ng-modeL="buscado.artista" placeholder="Buscar Artista">
+
+</div>
+	<div class="row">
+		<table class="striped">
+
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Artista</th>
+				<th>Álbum</th>
+				<th>Ano de Lançamento</th>
+				<th>Duração</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="i in musicas | filter:buscado">
+				<td>{{i.nome}}</td>
+				<td>{{i.artista}}</td>
+				<td>{{i.album}}</td>
+				<td>{{i.anolancamento}}</td>
+				<td>{{i.duracao}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	</div>
+
+	<div class="table">
+		  <!-- Modal Trigger -->
+ 	 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">+ Adicionar Música</a>
+	</div>
+
+</main>
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Adicionar música no sistema</h4>
+      <p>Preencha todas as informações para cadastrar uma música no sistema!</p>
+      <div class="row">
+      	  <div class="input-field col m6 s6">
+          <input type="text" ng-modeL="Musica.nome" class="validate">
+          <label>Nome da Música</label>
+        </div>
+      	  <div class="input-field col m6 s6">
+          <input type="text" ng-modeL="Musica.artista" class="validate">
+          <label>Artista</label>
+        </div>
+        <div class="input-field col m6 s6">
+          <input type="text" ng-modeL="Musica.album" class="validate">
+          <label>Álbum</label>
+        </div>
+        <div class="input-field col m6 s6">
+          <input type="number" ng-modeL="Musica.anolancamento" class="validate">
+          <label>Ano de Lançamento</label>
+        </div>
+         <div class="input-field col m6 s6">
+          <input type="number" ng-modeL="Musica.duracao" class="validate">
+          <label>Duração</label>
+ 
+        </div>
+
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+
+       	 <a ng-click="addMusica(Musica)" class="waves-effect waves-light btn blue">Cadastrar</a>
+
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  	
+  	$(document).ready(function(){
+    	$('.modal').modal();
+  });
+  </script>
+
+
+
+
+<script src="lib/angular/angular.min.js"></script>
+
+<script type="text/javascript">
+	angular.module("sistema", []).controller("controlePrincipal", 
+
+		function($scope) {
+			$scope.titulo = "Sistema de Música";
+			$scope.musicas = [ 
+			{nome: "Musica1", artista: "ZezedeCamargo", album: "album1", anolancamento: "1998", duracao: "160"},
+			{nome: "Musica2", artista: "Noel G.", album: "album2", anolancamento: "1999", duracao: "110"},
+			{nome: "Musica3", artista: "Liam G.", album: "album3", anolancamento: "1997", duracao: "120"},
+			{nome: "Musica4", artista: "Messias", album: "album4", anolancamento: "1995", duracao: "130"}
+
+			];
+
+			$scope.addMusica = function(Musica) {
+				$scope.musicas.push(Musica);
+				$('#modal1').modal('close');
+				limparFormulario();
+				
+			};
+
+			var limparFormulario = function() {
+				$scope.Musica = {nome: "", artista: "", album: "", anolancamento: "", duracao: ""};
+			};
+		});
+
+</script>
+</body>
+</html>
