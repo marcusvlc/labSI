@@ -4,6 +4,11 @@ h2 {
 	font-size: 100px;
 	color: black;
 	text-align: center;
-	font-family: 'Passion One', cursive;
+	font-family: 'Pacifico', cursive;
 	text-shadow: 3px 3px #000000;
+}
+
+header {
+	    border: 2px solid black;
+    	border-radius: 8px;
 }
