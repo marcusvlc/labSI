@@ -27,6 +27,7 @@
 			<tr>
 				<th>Nome</th>
 				<th>Foto do Artista</th>
+				<th>Comentário sobre o artista</th>
 			</tr>
 		</thead>
 
@@ -34,6 +35,7 @@
 			<tr ng-repeat="i in artistasCadastrados | filter:buscado">
 				<td>{{i.nome}}</td>
 				<td><img alt="Imagem inválida ou com link errado" src="{{i.imagem}}" width="100" height="100"></td>
+				<td>{{i.comentario}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -53,14 +55,19 @@
     <div class="modal-content">
       <h4>Adicionar um artista no sistema</h4>
       <p>Preencha todas as informações para cadastrar um artista no sistema!</p>
+      <p>Lembre-se de colocar uma URL válida ou o sistema não mostrará a imagem do artista</p>
       <div class="row">
       	  <div class="input-field col m6 s6">
-          <input type="text" ng-modeL="Artista.nome" class="validate">
+          <input type="text" ng-modeL="Artista.nome" class="validate" maxlength="50">
           <label>Nome do Artista</label>
         </div>
       	  <div class="input-field col m6 s6">
           <input type="text" ng-modeL="Artista.imagem" class="validate">
           <label>URL com imagem do artista</label>
+        </div>
+      	  <div class="input-field col m6 s6">
+          <input type="text" ng-modeL="Artista.comentario" class="validate" maxlength="100">
+          <label>Comentário sobre o artista</label>
         </div>
 
       </div>
@@ -92,7 +99,8 @@
 		function($scope) {
 			$scope.titulo = "Sistema de Música";
 			$scope.artistasCadastrados = [ 
-			{nome: "Liam Gallagher", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4IxDsRit-p3i4rrALx0gYh2Fr6rSdYeOWkV-xHDW369VeWYBk1g"}
+			{nome: "Liam Gallagher", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4IxDsRit-p3i4rrALx0gYh2Fr6rSdYeOWkV-xHDW369VeWYBk1g"
+			, comentario: "William John Paul Gallagher, conhecido como Liam Gallagher, é um músico britânico."}
 
 			];
 
@@ -123,7 +131,7 @@
 			};	
 
 			var limparFormulario = function() {
-				$scope.Artista = {nome: "", imagem: ""};
+				$scope.Artista = {nome: "", imagem: "", comentario: ""};
 				$scope.artistaExisteNoSistema = false;
 
 			};
