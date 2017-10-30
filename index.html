@@ -12,11 +12,12 @@
 <header class="container">
 	<div class="row">
 		<h2 ng-bind="titulo"></h2>
+
 	</div>
 </header>
 <main class="container">
 <div class="row">
-	<input type="text" name="" ng-modeL="buscado.artista" placeholder="Buscar Artista">
+	<input type="text" name="" ng-modeL="buscado.nome" placeholder="Buscar Artista">
 
 </div>
 	<div class="row">
@@ -25,20 +26,14 @@
 		<thead>
 			<tr>
 				<th>Nome</th>
-				<th>Artista</th>
-				<th>Álbum</th>
-				<th>Ano de Lançamento</th>
-				<th>Duração</th>
+				<th>Foto do Artista</th>
 			</tr>
 		</thead>
 
 		<tbody>
-			<tr ng-repeat="i in musicas | filter:buscado">
+			<tr ng-repeat="i in artistasCadastrados | filter:buscado">
 				<td>{{i.nome}}</td>
-				<td>{{i.artista}}</td>
-				<td>{{i.album}}</td>
-				<td>{{i.anolancamento}}</td>
-				<td>{{i.duracao}}</td>
+				<td><img alt="Imagem inválida ou com link errado" src="{{i.imagem}}" width="100" height="100"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -47,7 +42,7 @@
 
 	<div class="row">
 		  <!-- Modal Trigger -->
- 	 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">+ Adicionar Música</a>
+ 	 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">+ Adicionar Artista</a>
 	</div>
 
 </main>
@@ -56,38 +51,24 @@
   <!-- Modal Structure -->
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
-      <h4>Adicionar música no sistema</h4>
-      <p>Preencha todas as informações para cadastrar uma música no sistema!</p>
+      <h4>Adicionar um artista no sistema</h4>
+      <p>Preencha todas as informações para cadastrar um artista no sistema!</p>
       <div class="row">
       	  <div class="input-field col m6 s6">
-          <input type="text" ng-modeL="Musica.nome" class="validate">
-          <label>Nome da Música</label>
+          <input type="text" ng-modeL="Artista.nome" class="validate">
+          <label>Nome do Artista</label>
         </div>
       	  <div class="input-field col m6 s6">
-          <input type="text" ng-modeL="Musica.artista" class="validate">
-          <label>Artista</label>
+          <input type="text" ng-modeL="Artista.imagem" class="validate">
+          <label>URL com imagem do artista</label>
         </div>
-        <div class="input-field col m6 s6">
-          <input type="text" ng-modeL="Musica.album" class="validate">
-          <label>Álbum</label>
-        </div>
-        <div class="input-field col m6 s6">
-          <input type="number" ng-modeL="Musica.anolancamento" class="validate">
-          <label>Ano de Lançamento</label>
-        </div>
-         <div class="input-field col m6 s6">
-          <input type="number" ng-modeL="Musica.duracao" class="validate">
-          <label>Duração</label>
- 
-        </div>
-
 
       </div>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
 
-       	 <a ng-click="addMusica(Musica)" class="waves-effect waves-light btn blue">Cadastrar</a>
+       	 <a ng-click="addArtista(Artista)" class="waves-effect waves-light btn blue">Cadastrar</a>
 
 
     </div>
@@ -110,51 +91,51 @@
 
 		function($scope) {
 			$scope.titulo = "Sistema de Música";
-			$scope.musicas = [ 
-			{nome: "musica teste", artista: "Liam G.", album: "As you were", anolancamento: "2017", duracao: "450"}
+			$scope.artistasCadastrados = [ 
+			{nome: "Liam Gallagher", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4IxDsRit-p3i4rrALx0gYh2Fr6rSdYeOWkV-xHDW369VeWYBk1g"}
 
 			];
 
-			$scope.musicaExisteNoSistema = false;
+			$scope.artistaExisteNoSistema = false;
 
-			$scope.addMusica = function(Musica) {
-				checagem(Musica);
-				if(Musica.nome == "" || Musica.artista == "" || Musica.anolancamento == "" || Musica.album == "" || Musica.duracao == "") {
+			$scope.addArtista = function(Artista) {
+				checagem(Artista);
+				if(Artista.nome == "") {
 					Materialize.toast('Alguma informação está incorreta, verifique e tente novamente!', 2000)
 					limparFormulario();
 				} else {
-						if($scope.musicaExisteNoSistema == false) {
-						$scope.musicas.push(Musica);
+						if($scope.artistaExisteNoSistema == false) {
+						$scope.artistasCadastrados.push(Artista);
 						$('#modal1').modal('close');
 						  // Materialize.toast(message, displayLength, className, completeCallback);
 	  					Materialize.toast('Dados Salvos com sucesso!', 900) // 4000 is the duration of the toast
 						limparFormulario();
 					} else {
-						Materialize.toast('A música adicionada já existe no sistema, tente novamente!', 2000)
+						Materialize.toast('O artista já existe no sistema, tente novamente!', 2000)
 						limparFormulario();
 					};
 				};
 				
 			};
 
-			$scope.editarMusica = function(Musica) {
+			$scope.editarArtista = function(Artista) {
 				$('#modal1').modal('open');
 			};	
 
 			var limparFormulario = function() {
-				$scope.Musica = {nome: "", artista: "", album: "", anolancamento: "", duracao: ""};
-				$scope.musicaExisteNoSistema = false;
+				$scope.Artista = {nome: "", imagem: ""};
+				$scope.artistaExisteNoSistema = false;
 
 			};
 
-			var checagem = function(Musica) {
-				for (var i = $scope.musicas.length - 1; i >= 0; i--) {
-					if($scope.musicas[i].nome == Musica.nome){
-						$scope.musicaExisteNoSistema = true;
+			var checagem = function(Artista) {
+				for (var i = $scope.artistasCadastrados.length - 1; i >= 0; i--) {
+					if($scope.artistasCadastrados[i].nome == Artista.nome){
+						$scope.artistaExisteNoSistema = true;
 					};
 				};
 
-				return $scope.musicaExisteNoSistema;
+				return $scope.artistaExisteNoSistema;
 			};
 
 		});
