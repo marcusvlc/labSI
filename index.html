@@ -30,14 +30,16 @@
 				<th>Nome</th>
 				<th>Foto do Artista</th>
 				<th>Comentário sobre o artista</th>
+				<th>Ação</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			<tr ng-repeat="i in artistasCadastrados | filter:buscado">
 				<td>{{i.nome}}</td>
-				<td><img alt="Imagem inválida ou com link errado" src="{{i.imagem}}" width="100" height="100"></td>
+				<td><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
 				<td>{{i.comentario}}</td>
+				<td><button class="btn blue">Editar</button></td>
 			</tr>
 		</tbody>
 	</table>
@@ -117,11 +119,10 @@
 						if($scope.artistaExisteNoSistema == false) {
 						$scope.artistasCadastrados.push(Artista);
 						$('#modal1').modal('close');
-						  // Materialize.toast(message, displayLength, className, completeCallback);
-	  					Materialize.toast('Dados Salvos com sucesso!', 900) // 4000 is the duration of the toast
+	  					Materialize.toast('Dados Salvos com sucesso!', 900) // Tempo esta em ms
 						limparFormulario();
 					} else {
-						Materialize.toast('O artista já existe no sistema, tente novamente!', 2000)
+						Materialize.toast('O artista já existe no sistema, tente novamente!', 2000) // Tempo esta em ms
 						limparFormulario();
 					};
 				};
