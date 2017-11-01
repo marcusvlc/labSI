@@ -39,7 +39,13 @@
 				<td>{{i.nome}}</td>
 				<td><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
 				<td>{{i.comentario}}</td>
-				<td><button ng-click="editarArtista(i)" class="btn blue">Editar</button></td>
+				<td>
+					<button ng-click="editarArtista(i)" class="btn blue">Editar</button>
+					<button ng-click="removerArtista(i)" class="btn red">Remover</button>
+					<img ng-if="!i.ehFavorito" ng-click="favoritarArtista(i)" src="img/naofav.png" width="50" height="50">
+					<img ng-if="i.ehFavorito" ng-click="desfavoritarArtista(i)" src="img/fav.png" width="50" height="50">
+
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -106,11 +112,13 @@
 
 		function($scope) {
 			$scope.titulo = "Sistema de Música";
+
 			$scope.artistasCadastrados = [ 
 			{nome: "Liam Gallagher", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4IxDsRit-p3i4rrALx0gYh2Fr6rSdYeOWkV-xHDW369VeWYBk1g"
-			, comentario: "William John Paul Gallagher, conhecido como Liam Gallagher, é um músico britânico."}
-
+			, comentario: "William John Paul Gallagher, conhecido como Liam Gallagher, é um músico britânico.", ehFavorito: false}
 			];
+
+			$scope.artistasFavoritados = [];
 
 			$scope.artistaExisteNoSistema = false;
 			$scope.editando = false;
@@ -148,11 +156,35 @@
 
 			};
 
+			$scope.favoritarArtista = function(Artista) {
+					Artista.ehFavorito = true;
+					Materialize.toast('O artista foi adicionado a sua lista de favoritos!', 2000) 
+					$scope.artistasFavoritados.push(Artista);
+			}
+
+			$scope.desfavoritarArtista = function(Artista) {
+					Artista.ehFavorito = false;
+					Materialize.toast('O artista foi removido da sua lista de favoritos!', 2000)
+					for (var i = $scope.artistasFavoritados.length - 1; i >= 0; i--) {
+					 	if(Artista.nome == $scope.artistasFavoritados[i].nome) {
+					 		$scope.artistasFavoritados.splice(i, 1);
+					 	}
+					 } 
+			}
+
 			$scope.editarArtista = function(Artista) {
 				$scope.editando = true;
 				angular.copy(Artista, $scope.Artista);
 				$('#modal1').modal('open');
 				artistaEditado = Artista;
+			};
+
+			$scope.removerArtista = function(Artista) {
+				for (var i = $scope.artistasCadastrados.length - 1; i >= 0; i--) {
+					if(Artista == $scope.artistasCadastrados[i]) {
+						$scope.artistasCadastrados.splice(i, 1);
+					};
+				};
 			};
 
 			$scope.salvarArtista = function(Artista) {
