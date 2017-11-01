@@ -26,7 +26,11 @@
 </header>
 <main class="container">
 <div class="row">
-<input type="text" name="" ng-modeL="buscado.nome" placeholder="Buscar Artista">
+	<div id="elementosdepesquisa">
+		<img src="img/search.png" width="40" height="40">
+		<h5>Pesquisar por Artista</h5>
+	</div>
+<input type="text" name="" ng-modeL="buscado.nome" placeholder="Digite o nome do artista">
 
 </div>
 <div class="row">
@@ -98,7 +102,7 @@
 <a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
 
 	 <a ng-if="!editando" ng-click="addArtista(Artista)" class="waves-effect waves-light btn blue">Cadastrar</a>
-	 <a ng-if="editando" ng-click="salvarArtista(Artista)" class="waves-effect waves-light btn blue">Confirmar</a>
+	 <a ng-if="editando" ng-click="salvarArtista(Artista)" class="waves-effect waves-light btn blue">Salvar</a>
 
 
 </div>

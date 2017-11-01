@@ -21,4 +21,14 @@ input {
      cursor: pointer; 
  }
 
+#elementosdepesquisa img{
+	float: left;
+}
+
+#elementosdepesquisa h5 {
+	color: #ee6e73;
+	font-size: 30px;
+}
+
+
 
