@@ -1,263 +1,130 @@
 <!DOCTYPE html>
 <html ng-app="sistema">
 <head>
-	<title>Sistema Angular</title>
-	<meta charset="utf-8">
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-	 <link rel="stylesheet" type="text/css" href="css/estilo.css">
-	 <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-</head>
-<body ng-controller="controlePrincipal">
-<header class="container">
-	<div class="row">
-		<h2 ng-bind="titulo"></h2>
-	</div>
-</header>
-<main class="container">
-<div class="row">
-	<input type="text" name="" ng-modeL="buscado.nome" placeholder="Buscar Artista">
-
-</div>
-	<div class="row">
-		<table class="striped">
-
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Foto do Artista</th>
-				<th>Comentário sobre o artista</th>
-				<th>Ação</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<tr ng-repeat="i in artistasCadastrados | filter:buscado">
-				<td>{{i.nome}}</td>
-				<td><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
-				<td>{{i.comentario}}</td>
-				<td>
-					<button ng-click="editarArtista(i)" class="btn blue">Editar</button>
-					<button ng-click="removerArtista(i)" class="btn red">Remover</button>
-					<a ng-if="!i.ehFavorito" ng-click="favoritarArtista(i)" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">+</i></a>
-					<img ng-if="i.ehFavorito" ng-click="desfavoritarArtista(i)" class="fav" src="img/fav.png" width="50" height="50">
-
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
-	</div>
-
-	<div class="row">
-		  <!-- Modal Trigger -->
- 	 <a ng-click="abreAdicionarArtista()" class="waves-effect waves-light btn">+ Adicionar Artista</a>
-	</div>
-
-</main>
-
-
-  <!-- Estrutura modal para cadastrar/editar -->
-  <div id="modal1" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h4 ng-if="!editando">Adicionar um artista no sistema</h4>
-      <h4 ng-if="editando">Editar Artista</h4>
-      <p ng-if="!editando">Preencha todas as informações para cadastrar um artista no sistema!</p>
-      <p ng-if="editando">Preencha todas as informações para editar o artista!</p>
-
-      <p>Lembre-se de colocar uma URL válida ou o sistema não mostrará a imagem do artista</p>
-      <div class="row">
-      	  <div class="input-field col m6 s6">
-      	  <a>Nome do Artista<a>
-          <input type="text" ng-modeL="Artista.nome" class="validate" maxlength="50">
-        </div>
-      	  <div class="input-field col m6 s6">
-      	  <a>URL com imagem do artista<a>
-          <input type="text" ng-modeL="Artista.imagem" class="validate">
-        </div>
-      	  <div class="input-field col m6 s6">
-      	  <a>Comentário sobre o artista<a>
-          <input type="text" ng-modeL="Artista.comentario" class="validate" maxlength="100">
-        </div>
-
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
-
-       	 <a ng-if="!editando" ng-click="addArtista(Artista)" class="waves-effect waves-light btn blue">Cadastrar</a>
-       	 <a ng-if="editando" ng-click="salvarArtista(Artista)" class="waves-effect waves-light btn blue">Confirmar</a>
-
-
-    </div>
-  </div>
-
-  <script src="js/init.js"> </script>
+<title>Sistema Angular</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="js/init.js"> </script>
 
 
 
 
 <script src="lib/angular/angular.min.js"></script>
+<script src="js/app/app.js"></script>
+<script src="js/app/controllers.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="css/estilo.css">
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</head>
+<body ng-controller="controlePrincipal">
+<header class="container">
+<div class="row">
+<h2 ng-bind="titulo"></h2>
+</div>
+</header>
+<main class="container">
+<div class="row">
+<input type="text" name="" ng-modeL="buscado.nome" placeholder="Buscar Artista">
 
-<script type="text/javascript">
-	angular.module("sistema", []).controller("controlePrincipal", 
+</div>
+<div class="row">
+<table class="striped">
 
-		function($scope) {
-			$scope.titulo = "Sistema de Música";
+<thead>
+	<tr>
+		<th>Nome</th>
+		<th>Foto do Artista</th>
+		<th>Comentário sobre o artista</th>
+		<th>Ação</th>
+	</tr>
+</thead>
 
-			$scope.artistasCadastrados = [ 
-			{nome: "Liam Gallagher", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4IxDsRit-p3i4rrALx0gYh2Fr6rSdYeOWkV-xHDW369VeWYBk1g"
-			, comentario: "William John Paul Gallagher, conhecido como Liam Gallagher, é um músico britânico.", ehFavorito: false}
-			];
+<tbody>
+	<tr ng-repeat="i in artistasCadastrados | filter:buscado">
+		<td>{{i.nome}}</td>
+		<td><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
+		<td>{{i.comentario}}</td>
+		<td>
+			<button ng-click="editarArtista(i)" class="btn blue">Editar</button>
+			<button ng-click="removerArtista(i)" class="btn red">Remover</button>
+			<a ng-if="!i.ehFavorito" ng-click="favoritarArtista(i)" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">+</i></a>
+			<img ng-if="i.ehFavorito" ng-click="desfavoritarArtista(i)" class="fav" src="img/fav.png" width="50" height="50">
 
-			$scope.artistasFavoritados = [];
+		</td>
+	</tr>
+</tbody>
+</table>
 
-			$scope.artistaExisteNoSistema = false;
-			$scope.editando = false;
+</div>
 
-			$scope.addArtista = function(Artista) {
-				checagem(Artista);
-				if(Artista.nome == "") {
-					Materialize.toast('Alguma informação está incorreta, verifique e tente novamente!', 2000)
-					limparFormulario();
-				} else {
-						if($scope.artistaExisteNoSistema == false) {
-						$scope.artistasCadastrados.push(Artista);
-						$('#modal1').modal('close');
-	  					Materialize.toast('Dados Salvos com sucesso!', 1000) // Tempo esta em ms
-						limparFormulario();
-					} else {
-						Materialize.toast('O artista já existe no sistema, tente novamente!', 2000) // Tempo esta em ms
-						limparFormulario();
-					};
-				};
-				
-			};
+<div class="row">
+  <!-- Modal Trigger -->
+ <a ng-click="abreAdicionarArtista()" class="waves-effect waves-light btn">+ Adicionar Artista</a>
+</div>
 
-			var init = function() {
-				limparFormulario();
-			}
-
-			var artistaEditado;
-
-			$scope.abreAdicionarArtista = function() {
-				$scope.editando = false;
-				limparFormulario();
-				$('#modal1').modal('open');
-
-
-			};
-
-			$scope.favoritarArtista = function(Artista) {
-					Artista.ehFavorito = true;
-					Materialize.toast('O artista foi adicionado a sua lista de favoritos!', 2000) 
-					$scope.artistasFavoritados.push(Artista);
-			}
-
-			$scope.desfavoritarArtista = function(Artista) {
-					var click = confirm("Deseja excluir " + Artista.nome + " da sua lista de favoritos?");
-
-					if(click == true) {
-						Artista.ehFavorito = false;
-						Materialize.toast('O artista foi removido da sua lista de favoritos!', 2000)
-						for (var i = $scope.artistasFavoritados.length - 1; i >= 0; i--) {
-					 	if(Artista.nome == $scope.artistasFavoritados[i].nome) {
-					 		$scope.artistasFavoritados.splice(i, 1);
-					 	}
-					 } 
-					}
+</main>
 
 
-			}
+<!-- Estrutura modal para cadastrar/editar -->
+<div id="modal1" class="modal modal-fixed-footer">
+<div class="modal-content">
+<h4 ng-if="!editando">Adicionar um artista no sistema</h4>
+<h4 ng-if="editando">Editar Artista</h4>
+<p ng-if="!editando">Preencha todas as informações para cadastrar um artista no sistema!</p>
+<p ng-if="editando">Preencha todas as informações para editar o artista!</p>
 
-			$scope.editarArtista = function(Artista) {
-				$scope.editando = true;
-				angular.copy(Artista, $scope.Artista);
-				$('#modal1').modal('open');
-				artistaEditado = Artista;
-			};
+<p>Lembre-se de colocar uma URL válida ou o sistema não mostrará a imagem do artista</p>
+<div class="row">
+	  <div class="input-field col m6 s6">
+	  <a>Nome do Artista<a>
+  <input type="text" ng-modeL="Artista.nome" class="validate" maxlength="50">
+</div>
+	  <div class="input-field col m6 s6">
+	  <a>URL com imagem do artista<a>
+  <input type="text" ng-modeL="Artista.imagem" class="validate">
+</div>
+	  <div class="input-field col m6 s6">
+	  <a>Comentário sobre o artista<a>
+  <input type="text" ng-modeL="Artista.comentario" class="validate" maxlength="100">
+</div>
 
-			$scope.removerArtista = function(Artista) {
-				for (var i = $scope.artistasCadastrados.length - 1; i >= 0; i--) {
-					if(Artista == $scope.artistasCadastrados[i]) {
-						$scope.artistasCadastrados.splice(i, 1);
-					};
-				};
+</div>
+</div>
+<div class="modal-footer">
+<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
 
-				for (var i = $scope.artistasFavoritados.length - 1; i >= 0; i--) {
-					if(Artista == $scope.artistasFavoritados[i]) {
-						$scope.artistasFavoritados.splice(i, 1);
-					};
-				}
+	 <a ng-if="!editando" ng-click="addArtista(Artista)" class="waves-effect waves-light btn blue">Cadastrar</a>
+	 <a ng-if="editando" ng-click="salvarArtista(Artista)" class="waves-effect waves-light btn blue">Confirmar</a>
 
-			};
 
-			$scope.salvarArtista = function(Artista) {
-				checagem(Artista);
-				if(Artista.nome == "") {
-					Materialize.toast('Alguma informação está incorreta, verifique e tente novamente!', 2000)
-				} else {
-						if($scope.artistaExisteNoSistema == false || Artista.nome == artistaEditado.nome) {
-							artistaEditado.nome = Artista.nome;
-							artistaEditado.imagem = Artista.imagem;
-							artistaEditado.comentario = Artista.comentario;
-							$('#modal1').modal('close');
-	  						Materialize.toast('Dados Salvos com sucesso!', 1000) // Tempo esta em ms
-							limparFormulario();
-					} else {
-						$('#modal1').modal('close');
-						Materialize.toast('O artista já existe no sistema, sua edição falhou, tente novamente!', 3000) // Tempo esta em ms
-						limparFormulario();
-					};
-				};
+</div>
+</div>
 
-			};
 
-			var limparFormulario = function() {
-				$scope.Artista = {nome: "", imagem: "", comentario: ""};
-				$scope.artistaExisteNoSistema = false;
-
-			};
-
-			var checagem = function(Artista) {
-				for (var i = $scope.artistasCadastrados.length - 1; i >= 0; i--) {
-					if($scope.artistasCadastrados[i].nome == Artista.nome){
-						$scope.artistaExisteNoSistema = true;
-					};
-				};
-
-				return $scope.artistaExisteNoSistema;
-			};
-
-			init();
-
-		});
-
-</script>
 </body>
 
-  <footer class="page-footer">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Titulo do rodapé</h5>
-                <p class="grey-text text-lighten-4">Alguma informação importante aqui.</p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" target="_blank" href="https://www.facebook.com/M.Vinicius.Tpv">- Facebook</a></li>
-                  <li><a class="grey-text text-lighten-3" target="_blank" href="https://github.com/marcusvlc">- GitHub</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2017 by: Marcus Vinicius
-            </div>
-          </div>
-        </footer>
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Titulo do rodapé</h5>
+        <p class="grey-text text-lighten-4">Alguma informação importante aqui.</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Links</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" target="_blank" href="https://www.facebook.com/M.Vinicius.Tpv">- Facebook</a></li>
+          <li><a class="grey-text text-lighten-3" target="_blank" href="https://github.com/marcusvlc">- GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2017 by: Marcus Vinicius
+    </div>
+  </div>
+</footer>
 </html>
