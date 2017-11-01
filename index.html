@@ -162,13 +162,19 @@
 			}
 
 			$scope.desfavoritarArtista = function(Artista) {
-					Artista.ehFavorito = false;
-					Materialize.toast('O artista foi removido da sua lista de favoritos!', 2000)
-					for (var i = $scope.artistasFavoritados.length - 1; i >= 0; i--) {
+					var click = confirm("Deseja excluir " + Artista.nome + " da sua lista de favoritos?");
+
+					if(click == true) {
+						Artista.ehFavorito = false;
+						Materialize.toast('O artista foi removido da sua lista de favoritos!', 2000)
+						for (var i = $scope.artistasFavoritados.length - 1; i >= 0; i--) {
 					 	if(Artista.nome == $scope.artistasFavoritados[i].nome) {
 					 		$scope.artistasFavoritados.splice(i, 1);
 					 	}
 					 } 
+					}
+
+
 			}
 
 			$scope.editarArtista = function(Artista) {
