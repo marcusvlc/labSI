@@ -4,7 +4,7 @@ h2 {
 	font-size: 100px;
 	color: #ee6e73;
 	text-align: center;
-	font-family: 'Pacifico', cursive;
+	font-family: 'Pacifico', cursive; 
 
 }
 
@@ -16,5 +16,9 @@ header {
 input {
 	color: black;
 }
+
+.fav {
+     cursor: pointer; 
+ }
 
 
