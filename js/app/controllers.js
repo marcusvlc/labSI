@@ -13,7 +13,8 @@ angular.module("sistema")
 		, comentario: "Sir James Paul McCartney é um cantor, compositor, multi-instrumentista, empresário, produtor musical britânico. ", ehFavorito: false}
 		];
 
-		$scope.artistasFavoritados = [];
+		$scope.artistasFavoritados = [{nome: "", imagem: "", Artista:{}, musicas:[]}];
+
 
 		$scope.artistaExisteNoSistema = false;
 		$scope.editando = false;
@@ -48,8 +49,12 @@ angular.module("sistema")
 			limparFormulario();
 			$('#modal1').modal('open');
 
-
 		};
+
+		$scope.abreAdicionarAlbum = function() {
+			$scope.Album = {nome: "", imagem: "", Artista:{}, musicas:[]};
+			$('#modal2').modal('open');
+		}
 
 		$scope.favoritarArtista = function(Artista) {
 				Artista.ehFavorito = true;
