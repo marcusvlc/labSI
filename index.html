@@ -3,6 +3,8 @@
 <head>
 <title>Sistema Angular</title>
 <meta charset="utf-8">
+
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="js/init.js"> </script>
 
@@ -12,24 +14,20 @@
 <script src="lib/angular/angular.min.js"></script>
 <script src="js/app/app.js"></script>
 <script src="js/app/controllers.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 <link rel="stylesheet" type="text/css" href="css/estilo.css">
 <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
 <body ng-controller="controlePrincipal">
+
 <header class="container">
 <div class="row">
 <h2 ng-bind="titulo"></h2>
-<select id=cbPais>
-    <option>Select Country</option>
-    <option>Usa</option>
-    <option>Canada</option>
-    <option>Mexico</option>
-</select>
-
 </div>
+
+{{albunsCadastrados}}
 </header>
 <main class="container">
 <div class="row">
@@ -38,6 +36,7 @@
 		<h5>Pesquisar por Artista</h5>
 	</div>
 <input type="text" name="" ng-modeL="buscado.nome" placeholder="Digite o nome do artista">
+
 
 </div>
 <div class="row">
@@ -54,13 +53,13 @@
 
 <tbody>
 	<tr ng-repeat="i in artistasCadastrados | filter:buscado">
-		<td>{{i.nome}}</td>
+		<td ng-click="abreListarAlbuns(i)">{{i.nome}}</td>
 		<td><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
 		<td>{{i.comentario}}</td>
 		<td>
 			<button ng-click="editarArtista(i)" class="btn blue">Editar</button>
 			<button ng-click="removerArtista(i)" class="btn red">Remover</button>
-			<a ng-if="!i.ehFavorito" ng-click="favoritarArtista(i)" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">+</i></a>
+			<img ng-if="!i.ehFavorito" src="img/naofav.png" ng-click="favoritarArtista(i)" class="fav" width="50" height="50">
 			<img ng-if="i.ehFavorito" ng-click="desfavoritarArtista(i)" class="fav" src="img/fav.png" width="50" height="50">
 
 		</td>
@@ -119,7 +118,8 @@
 <h4>Adicionar um Álbum no sistema</h4>
 <p>Preencha todas as informações para cadastrar um álbum no sistema!</p>
 
-<p>Lembre-se de colocar uma URL válida ou o sistema não mostrará a imagem do álbum</p>
+<p>Lembre-se de colocar uma URL válida ou o sistema não mostrará a imagem do álbum!</p>
+<p>Você só pode cadastrar álbuns caso exista artistas cadastrados no sistema!</p>
 <div class="row">
 	  <div class="input-field col m6 s6">
 	  <a>Nome do Álbum<a>
@@ -129,19 +129,21 @@
 	  <a>URL com imagem do álbum<a>
   <input type="text" ng-modeL="Album.imagem" class="validate">
 </div>
-	  <div class="input-field col m6 s6">
-	  <a>Comentário sobre o álbum<a>
-  <input type="text" ng-modeL="Album.comentario" class="validate" maxlength="100">
-</div>
-	<div>
-		<select id=cbPais>
-		    <option>Select Country</option>
-		    <option>Usa</option>
-		    <option>Canada</option>
-		    <option>Mexico</option>
-		</select>
 
-	  </div>
+	  <div class="input-field col m6 s6">
+	  <a>Ano de lançamento do álbum<a>
+  		<input type="number" ng-modeL="Album.ano" class="validate">
+	</div>
+
+		<a>Você selecionou: {{artistaDaVez.nome}}</a>
+		<br>
+	  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Selecione o Artista!</a>
+
+  <!-- Dropdown Structure -->
+  <ul id='dropdown1' class='dropdown-content'>
+    <li ng-repeat="x in artistasCadastrados" ng-click="setArtistaDaVez(x)"><a href="#!">{{x.nome}}</a></li>
+  </ul>
+
 </div>
 </div>
 <div class="modal-footer">
@@ -152,6 +154,20 @@
 </div>
 
 
+  <!-- Modal Para listar Albuns -->
+  <div id="modal3" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>Álbuns do Artista</h4>
+     	<ul>
+     		<li ng-repeat="i in albunsListados">Nome do Álbum: {{i.nome}} - Ano de Lançamento: {{i.ano}}</li>
+     	</ul>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn blue">Fechar</a>
+    </div>
+  </div>
+
+
 
 
 </body>
@@ -160,11 +176,11 @@
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
-        <h5 class="white-text">Titulo do rodapé</h5>
-        <p class="grey-text text-lighten-4">Alguma informação importante aqui.</p>
+        <h5 class="white-text">Informações sobre o site</h5>
+        <p class="grey-text text-lighten-4">Site desenvolvido por Marcus Vinicius, estudante da UFCG.<br> Tecnologias utilizadas: HTML 5, CSS 3, Angular 1.6 e Javascript. <br> Alguns recursos visuais do <a href="http://materializecss.com/">Materialize</a> foram utilizados na construção do site.</p>
       </div>
       <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
+        <h5 class="white-text">Links de Contato</h5>
         <ul>
           <li><a class="grey-text text-lighten-3" target="_blank" href="https://www.facebook.com/M.Vinicius.Tpv">- Facebook</a></li>
           <li><a class="grey-text text-lighten-3" target="_blank" href="https://github.com/marcusvlc">- GitHub</a></li>

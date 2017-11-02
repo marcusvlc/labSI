@@ -1,1 +1,1 @@
-angular.module("sistema", [])
+var app = angular.module("sistema", [])
