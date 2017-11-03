@@ -7,10 +7,6 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="js/init.js"> </script>
-
-
-
-
 <script src="lib/angular/angular.min.js"></script>
 <script src="js/app/app.js"></script>
 <script src="js/app/controllers.js"></script>
@@ -19,15 +15,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 <link rel="stylesheet" type="text/css" href="css/estilo.css">
 <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body ng-controller="controlePrincipal">
-
+{{albunsCadastrados}}
 <header class="container">
 <div class="row">
 <h2 ng-bind="titulo"></h2>
 </div>
 
-{{albunsCadastrados}}
 </header>
 <main class="container">
 <div class="row">
@@ -37,10 +34,20 @@
 	</div>
 <input type="text" name="" ng-modeL="buscado.nome" placeholder="Digite o nome do artista">
 
+</div>
+
+
+
+<div class="row">
+<div class="row">
+  <!-- Modal Trigger -->
+ <a ng-click="abreAdicionarArtista()" class="waves-effect waves-light btn">+ Adicionar Artista</a>
+ <a ng-click="abreAdicionarAlbum()" class="waves-effect waves-light btn pink">+ Adicionar Álbum</a>
+ <a ng-click="" class="waves-effect waves-light btn purple">+ Adicionar Música</a>
 
 </div>
-<div class="row">
-<table class="striped">
+
+<table class="bordered">
 
 <thead>
 	<tr>
@@ -53,8 +60,8 @@
 
 <tbody>
 	<tr ng-repeat="i in artistasCadastrados | filter:buscado">
-		<td ng-click="abreListarAlbuns(i)">{{i.nome}}</td>
-		<td><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
+		<td>{{i.nome}}</td>
+		<td ng-click="abreListarAlbuns(i)"><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
 		<td>{{i.comentario}}</td>
 		<td>
 			<button ng-click="editarArtista(i)" class="btn blue">Editar</button>
@@ -67,13 +74,11 @@
 </tbody>
 </table>
 
+<div id="elementosdeinfo"> 
+<i class="material-icons">album</i>
+<h5>Para visualizar os álbuns de um artista clique em sua foto</h5>
 </div>
 
-<div class="row">
-  <!-- Modal Trigger -->
- <a ng-click="abreAdicionarArtista()" class="waves-effect waves-light btn">+ Adicionar Artista</a>
- <a ng-click="abreAdicionarAlbum()" class="waves-effect waves-light btn pink">+ Adicionar Álbum</a>
- <a ng-click="" class="waves-effect waves-light btn purple">+ Adicionar Música</a>
 </div>
 
 </main>
@@ -159,7 +164,14 @@
     <div class="modal-content">
       <h4>Álbuns do Artista</h4>
      	<ul>
-     		<li ng-repeat="i in albunsListados">Nome do Álbum: {{i.nome}} - Ano de Lançamento: {{i.ano}}</li>
+        <div class="conteudo" ng-repeat="i in albunsListados">
+          <div class="icone">
+            <i class="material-icons">album</i>
+          </div>
+            <div class="listadealbuns">
+     		     <li>Nome do Álbum: {{i.nome}} - Ano de Lançamento: {{i.ano}}</li>
+             </div>
+        </div>
      	</ul>
     </div>
     <div class="modal-footer">

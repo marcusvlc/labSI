@@ -21,6 +21,26 @@ input {
      cursor: pointer; 
  }
 
+ .circle {
+ 	cursor: pointer; 
+ }
+
+ .row input {
+ 	float: right;
+ }
+
+.conteudo {
+	display: table;
+}
+
+.icone {
+	float: left;
+}
+
+.listadealbuns {
+	float: left;
+}
+
 #elementosdepesquisa img{
 	float: left;
 }
@@ -28,6 +48,19 @@ input {
 #elementosdepesquisa h5 {
 	color: #ee6e73;
 	font-size: 30px;
+}
+
+#elementosdeinfo h5 {
+	font-size: 15px;
+	color: #A9A9A9;
+	margin-left: 30px;
+}
+
+#elementosdeinfo i {
+	float: left;
+	opacity: 0.6;
+	margin-bottom: 0px;
+
 }
 
 

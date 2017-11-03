@@ -13,7 +13,6 @@ app.controller("controlePrincipal",
 		];
 
 		$scope.albunsCadastrados = [];
-
 		$scope.artistasFavoritados = [];
 		$scope.albunsListados = [];
 
@@ -33,18 +32,23 @@ app.controller("controlePrincipal",
 		}
 
 		$scope.addAlbum = function(Album) {
-				if($scope.albumExisteNoSistema(Album)) {
-					Materialize.toast('O álbum > ' + Album.nome +  ' < já existe no sistema, tente outro!', 2000)
+				if(Album.nome == "") {
+					Materialize.toast('Alguma informação está incorreta, tente novamente!', 2000)
 				} else {
+					if($scope.albumExisteNoSistema(Album)) {
+						Materialize.toast('O álbum > ' + Album.nome +  ' < já existe no sistema, tente outro!', 2000)
+					} else {
+						Album.dono = $scope.artistaDaVez.nome;
+						$scope.artistaDaVez.albuns.push(Album);
+						$scope.albunsCadastrados.push(Album);
+						$('#modal2').modal('close');
+						Materialize.toast('O álbum > ' + Album.nome +  ' < foi cadastrado com sucesso!', 2000)
+						$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false};
 
-					$scope.artistaDaVez.albuns.push(Album);
-					$scope.albunsCadastrados.push(Album);
-					$('#modal2').modal('close');
-					Materialize.toast('O álbum > ' + Album.nome +  ' < foi cadastrado com sucesso!', 2000)
-					$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false};
-
-				}
+					}
+			}
 		}
+
 
 		$scope.albumExisteNoSistema = function(Album) {
 			for (var i = $scope.albunsCadastrados.length - 1; i >= 0; i--) {
@@ -89,7 +93,7 @@ app.controller("controlePrincipal",
 		};
 
 		$scope.abreAdicionarAlbum = function() {
-			$scope.Album = {nome: "", imagem: "", ano: "", musicas:[]};
+			$scope.Album = {nome: "", imagem: "", ano: "", musicas:[], dono:""};
 			$('#modal2').modal('open');
 		}
 
@@ -141,7 +145,17 @@ app.controller("controlePrincipal",
 				};
 			}
 
+			$scope.removeAlbunsArtista(Artista);
+
 		};
+
+		$scope.removeAlbunsArtista = function(Artista) {
+			for (var i = $scope.albunsCadastrados.length - 1; i >= 0; i--) {
+				if($scope.albunsCadastrados[i].dono == Artista.nome) {
+					$scope.albunsCadastrados.splice(i, 1);
+				}
+			}
+		}
 
 		$scope.salvarArtista = function(Artista) {
 			checagem(Artista);
