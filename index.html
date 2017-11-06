@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="sistema">
-<head base>
+<head >
 <title>Sistema Angular</title>
 <meta charset="utf-8">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -22,22 +22,13 @@
 <link rel="stylesheet" type="text/css" href="css/estilo.css">
 <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
 <body ng-controller="controlePrincipal">
 
-    <nav>
-    <div class="nav-wrapper">
-      <a>{{titulo}}</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a ui-sref="home" ui-sref-active="active">Home</a></li>
-        <li><a ui-sref="playlists" ui-sref-active="active">Playlists</a></li>
-        <li><a ui-sref="" ui-sref-active="active">Pagina nao criada1</a></li>
-        <li><a ui-sref="" ui-sref-active="active">Pagina nao criada2</a></li>
-      </ul>
-    </div>
-  </nav>
+<div ng-include="'paginas/_nav.html'"></div>
+
 <header class="container">
+
 <div class="row">
 <h2>Sistema de Música</h2>
 </div>
@@ -185,9 +176,16 @@
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn blue">Fechar</a>
     </div>
+
   </div>
 
-<main class="container">
+
+<div ng-view></div>
+
+
+
+<main class="container"> 
+
 <div class="row">
   <div id="elementosdepesquisa">
     <img src="img/search.png" width="40" height="40">

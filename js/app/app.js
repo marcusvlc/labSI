@@ -25,19 +25,15 @@ var app = angular.module('sistema',['ngRoute']);
 
 
 
-// app.config(function($routeProvider)
-// {
+app.config(function($routeProvider)
+{
 
-//    $routeProvider
-//    .when('/', {
-//       templateUrl : 'index.html',
-//       controller     : 'controlePrincipal',
-//    })
+   $routeProvider
+   .when('/playlists', {
+      templateUrl : 'paginas/playlists.html',
+      controller  : 'playlistsctrl',
+   })
 
-//    .when('/playlists', {
-//       templateUrl : 'paginas/playlists.html',
-//       controller  : 'playlistsctrl',
-//    })
+   .otherwise ({ redirectTo: '/' });
 
-//    .otherwise ({ redirectTo: '/' });
-// });
+});
