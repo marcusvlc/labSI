@@ -2,7 +2,7 @@ app.controller("controlePrincipal",
 
 	function($scope, $rootScope, $location) {
 		$rootScope.activetab = $location.path();
-		$scope.titulo = "Sistema de Música";
+		$scope.titulo = "Home";
 
 		$scope.artistasCadastrados = [ 
 		{nome: "Liam Gallagher", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4IxDsRit-p3i4rrALx0gYh2Fr6rSdYeOWkV-xHDW369VeWYBk1g"
@@ -16,11 +16,13 @@ app.controller("controlePrincipal",
 		$scope.albunsCadastrados = [];
 		$scope.artistasFavoritados = [];
 		$scope.albunsListados = [];
+		$scope.musicasCadastradas = [];
 
 
 		$scope.artistaExisteNoSistema = false;
 		$scope.editando = false;
-		$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false};
+		$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[]};
+		$scope.albumDaVez = {nome: "", imagem: "", ano: "", musicas:[], dono:""};
 
 		$scope.abreListarAlbuns = function(Artista) {
 			$scope.albunsListados = Artista.albuns;
@@ -48,7 +50,7 @@ app.controller("controlePrincipal",
 						$scope.albunsCadastrados.push(Album);
 						$('#modal2').modal('close');
 						Materialize.toast('O álbum > ' + Album.nome +  ' < foi cadastrado com sucesso!', 2000)
-						$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false};
+						$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[]};
 
 					}
 			}
@@ -100,6 +102,12 @@ app.controller("controlePrincipal",
 		$scope.abreAdicionarAlbum = function() {
 			$scope.Album = {nome: "", imagem: "", ano: "", musicas:[], dono:""};
 			$('#modal2').modal('open');
+		}
+
+		$scope.abreAdicionarMusica = function() {
+			$scope.Musica = {nome: "", Artista:{}, Album:{}, ano: "", duracao:""};
+			$('#modal4').modal('open');
+
 		}
 
 		$scope.favoritarArtista = function(Artista) {
@@ -208,6 +216,7 @@ app.controller('playlistsctrl', function($scope, $rootScope, $location)
 {
 	$scope.message = "Estou na pagina de playlists";
    $rootScope.activetab = $location.path();
+   $scope.titulo = "PlayLists";
 });
 
 
