@@ -1,6 +1,7 @@
 app.controller("controlePrincipal", 
 
-	function($scope) {
+	function($scope, $rootScope, $location) {
+		$rootScope.activetab = $location.path();
 		$scope.titulo = "Sistema de Música";
 
 		$scope.artistasCadastrados = [ 
@@ -201,3 +202,21 @@ app.controller("controlePrincipal",
 		init();
 
 	});
+
+
+app.controller('playlistsctrl', function($scope, $rootScope, $location)
+{
+	$scope.message = "Estou na pagina de playlists";
+   $rootScope.activetab = $location.path();
+});
+
+
+// app.controller('homectrl', function($scope){
+// 	$scope.message = 'Pagina home';
+// });
+// app.controller('playlistsctrl', function($scope){
+// 	$scope.message = 'Pagina playlists';
+// });
+// app.controller('favoritosctrl', function($scope){
+// 	$scope.message = 'Pagina favoritos';
+// });
