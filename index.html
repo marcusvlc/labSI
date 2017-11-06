@@ -8,6 +8,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
 <script src="lib/angular/angular-route.min.js"></script>
 <script src="lib/angular/angular-ui-router.js"></script>
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 <script src="js/init.js"> </script>
 <script src="js/app/app.js"></script>
 <script src="js/app/controllers.js"></script>
@@ -32,10 +37,6 @@
       </ul>
     </div>
   </nav>
-
-{{albunsCadastrados}}
-{{artistasCadastrados}}
-
 <header class="container">
 <div class="row">
 <h2>Sistema de Música</h2>
@@ -78,7 +79,7 @@
 </div>
 </div>
 
-<!-- Estrutura modal para cadastrar/editar ARTISTAS -->
+<!-- Estrutura modal para cadastrar Albuns -->
 <div id="modal2" class="modal modal-fixed-footer">
 <div class="modal-content">
 <h4>Adicionar um Álbum no sistema</h4>
@@ -113,7 +114,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
+<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray" ng-click="resetArtistaDaVez()">Cancelar</a>
 
    <a ng-click="addAlbum(Album)" class="waves-effect waves-light btn blue">Cadastrar</a>
 </div>
@@ -140,21 +141,24 @@
   </div>
 
     <a>Você selecionou: {{albumDaVez.nome}}</a>
-    <br>
-       
 
-       <div ng-app="sistema" ng-controller="controlePrincipal">
+    <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Selecione um Álbum
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-repeat="i in albunsCadastrados" ng-click="setAlbumDaVez(i)">{{i.nome}}</a></li>
+    </ul>
+  </div>
 
-      <select ng-model="selectedName" ng-options="x in albunsCadastrados.nome">
-      </select>
-
-</div>
-
+   <div class="input-field col m6 s6">
+    <a>Duração da música<a>
+      <input type="number" ng-modeL="Musica.duracao" class="validate">
+  </div>
 
 </div>
 </div>
 <div class="modal-footer">
-<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
+<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray" ng-click="resetAlbumDaVez()">Cancelar</a>
 
    <a ng-click="addMusica(Musica)" class="waves-effect waves-light btn blue">Cadastrar</a>
 </div>

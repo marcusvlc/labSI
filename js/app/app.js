@@ -1,4 +1,4 @@
-var app = angular.module('sistema',['ui.router']);
+var app = angular.module('sistema',['ngRoute']);
 
 // app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -25,15 +25,12 @@ var app = angular.module('sistema',['ui.router']);
 
 
 
-// app.config(function($routeProvider, $locationProvider)
+// app.config(function($routeProvider)
 // {
-//    // remove o # da url
-//    $locationProvider.html5Mode(true);
 
 //    $routeProvider
-
 //    .when('/', {
-//       templateUrl : 'paginas/home.html',
+//       templateUrl : 'index.html',
 //       controller     : 'controlePrincipal',
 //    })
 

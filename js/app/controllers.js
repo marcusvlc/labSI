@@ -34,6 +34,39 @@ app.controller("controlePrincipal",
 			$scope.artistaDaVez = Artista;
 		}
 
+		$scope.setAlbumDaVez = function(Album) {
+			$scope.albumDaVez = Album;
+		}
+
+		$scope.resetArtistaDaVez = function() {
+			$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[]};
+
+		}
+
+		$scope.resetAlbumDaVez = function() {
+			$scope.albumDaVez = {nome: "", imagem: "", ano: "", musicas:[], dono:""};
+
+		}
+
+		$scope.addMusica = function(Musica) {
+			if(Musica.nome == "" || Musica.ano == "" || Musica.duracao == "" ) {
+				Materialize.toast('Alguma informação está incorreta, tente novamente!', 2000)
+			} else {
+				if($scope.musicaExisteNoSistema(Musica)) {
+					Materialize.toast('A música > ' + Musica.nome + ' < já existe no sistema, tente cadastrar outra!', 2000)
+				} else {
+
+				$scope.albumDaVez.musicas.push(Musica);
+				Musica.albumNome = $scope.albumDaVez.nome;
+				$scope.musicasCadastradas.push(Musica);
+				$('#modal4').modal('close');
+				Materialize.toast('A música > ' + Musica.nome +  ' < foi adicionada ao Álbum: > ' + $scope.albumDaVez.nome + ' < com sucesso!', 2000)
+				$scope.resetAlbumDaVez();
+				}
+
+			}
+		}
+
 		$scope.addAlbum = function(Album) {
 				if(Album.nome == "") {
 					Materialize.toast('Alguma informação está incorreta, tente novamente!', 2000)
@@ -50,7 +83,7 @@ app.controller("controlePrincipal",
 						$scope.albunsCadastrados.push(Album);
 						$('#modal2').modal('close');
 						Materialize.toast('O álbum > ' + Album.nome +  ' < foi cadastrado com sucesso!', 2000)
-						$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[]};
+						$scope.resetArtistaDaVez();
 
 					}
 			}
@@ -58,13 +91,25 @@ app.controller("controlePrincipal",
 
 
 		$scope.albumExisteNoSistema = function(Album) {
+			var existeAlbum = false;
 			for (var i = $scope.albunsCadastrados.length - 1; i >= 0; i--) {
 				if($scope.albunsCadastrados[i].nome == Album.nome) {
-					return true;
+					existeAlbum = true;
 				}
 			}
 
-			return false;
+			return existeAlbum;
+		}
+
+		$scope.musicaExisteNoSistema = function(Musica) {
+			var existeMusica  = false;
+			for (var i = $scope.musicasCadastradas.length - 1; i >= 0; i--) {
+				if($scope.musicasCadastradas[i].nome == Musica.nome) {
+					existeMusica  = true;
+				}
+			}
+
+			return existeMusica
 		}
 
 		$scope.addArtista = function(Artista) {
@@ -105,7 +150,7 @@ app.controller("controlePrincipal",
 		}
 
 		$scope.abreAdicionarMusica = function() {
-			$scope.Musica = {nome: "", Artista:{}, Album:{}, ano: "", duracao:""};
+			$scope.Musica = {nome: "", albumNome:"", ano: "", duracao:""};
 			$('#modal4').modal('open');
 
 		}
