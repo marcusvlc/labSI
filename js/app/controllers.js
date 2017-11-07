@@ -271,6 +271,6 @@ app.controller('playlistsctrl', function($scope, $rootScope, $location)
 // app.controller('playlistsctrl', function($scope){
 // 	$scope.message = 'Pagina playlists';
 // });
-// app.controller('favoritosctrl', function($scope){
-// 	$scope.message = 'Pagina favoritos';
-// });
+app.controller('favoritosctrl', function($scope){
+	$scope.message = 'Pagina favoritos';
+});
