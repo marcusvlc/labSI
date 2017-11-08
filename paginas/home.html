@@ -15,6 +15,8 @@
 <link rel="stylesheet" type="text/css" href="css/estilo.css">
 <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
+
 </head>
 
 <div>
@@ -143,7 +145,21 @@
 
   <!-- Modal Para listar Albuns -->
   <div id="modal3" class="modal bottom-sheet">
-    <div class="modal-content">
+    <div id="infoartista" class="modal-content">
+    <h3>Informações do Artista</h3>
+
+    <div id="teste1">
+    <h4>Indique uma nota para o Artista</h4>
+      <br>
+      <br>
+      <select id="notaselecao">
+        <option ng-repeat="i in ['1','2','3','4','5']" value="{{i}}">{{i}}</option>
+      </select>
+
+      <button ng-click="setNotaArtista()" class="btn blue">Enviar Nota</button>
+    </div>
+
+    <div id="teste2">
       <h4>Álbuns do Artista</h4>
       <ul>
         <div class="conteudo" ng-repeat="i in albunsListados">
@@ -156,8 +172,9 @@
         </div>
       </ul>
     </div>
+    </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn blue">Fechar</a>
+      <a ng-click="resetArtistaDaVez()" class="modal-action modal-close waves-effect waves-green btn blue">Fechar</a>
     </div>
 
   </div>
@@ -167,6 +184,7 @@
 
 
 <main class="container"> 
+{{artistaDaVez}}
 {{albunsCadastrados}}
 <div class="row">
   <div id="elementosdepesquisa">
@@ -195,6 +213,7 @@
     <th>Nome</th>
     <th>Foto do Artista</th>
     <th>Comentário sobre o artista</th>
+    <th>Nota do Artista</th>
     <th>Ação</th>
   </tr>
 </thead>
@@ -204,6 +223,7 @@
     <td>{{i.nome}}</td>
     <td ng-click="abreListarAlbuns(i)"><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
     <td>{{i.comentario}}</td>
+    <td>{{i.nota}}</td>
     <td>
       <button ng-click="editarArtista(i)" class="btn blue">Editar</button>
       <button ng-click="removerArtista(i)" class="btn red">Remover</button>
