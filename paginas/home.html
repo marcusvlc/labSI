@@ -74,7 +74,7 @@
 
 <div id="elementosdeinfo"> 
 <i class="material-icons">album</i>
-<h5>Para visualizar os álbuns de um artista clique em sua foto</h5>
+<h5>Para visualizar os álbuns de um artista ou dar nota ao mesmo clique em sua foto</h5>
 </div>
 
 </div>
@@ -84,8 +84,8 @@
 <!-- Estrutura modal para cadastrar/editar ARTISTAS -->
 <div id="modal1" class="modal modal-fixed-footer">
 <div class="modal-content">
-<h4 ng-if="!editando">Adicionar um artista no sistema</h4>
-<h4 ng-if="editando">Editar Artista</h4>
+<h4 ng-if="!editando">↪ Adicionar um artista no sistema</h4>
+<h4 ng-if="editando">↪ Editar Artista</h4>
 <p ng-if="!editando">Preencha todas as informações para cadastrar um artista no sistema!</p>
 <p ng-if="editando">Preencha todas as informações para editar o artista!</p>
 
@@ -117,7 +117,7 @@
 <!-- Estrutura modal para cadastrar Albuns -->
 <div id="modal2" class="modal modal-fixed-footer">
 <div class="modal-content">
-<h4>Adicionar um Álbum no sistema</h4>
+<h4>↪ Adicionar um Álbum no sistema</h4>
 <p>Preencha todas as informações para cadastrar um álbum no sistema!</p>
 
 <p>Lembre-se de colocar uma URL válida ou o sistema não mostrará a imagem do álbum!</p>
@@ -139,7 +139,7 @@
 
     <a>Você selecionou: {{artistaDaVez.nome}}</a>
     <br>
-    <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Selecione o Artista!</a>
+    <a class='dropdown-button btn red' href='#' data-activates='dropdown1'>Selecione o Artista!</a>
 
   <!-- Dropdown Structure -->
   <ul id='dropdown1' class='dropdown-content'>
@@ -160,7 +160,7 @@
 <!-- Estrutura modal para cadastrar MUSICAS -->
 <div id="modal4" class="modal modal-fixed-footer">
 <div class="modal-content">
-<h4>Adicionar uma Música no sistema</h4>
+<h4>↪ Adicionar uma Música no sistema</h4>
 <p>Preencha todas as informações para cadastrar uma música no sistema!</p>
 
 <p>Você só pode cadastrar músicas caso exista artistas e álbuns cadastrados no sistema!</p>
@@ -177,7 +177,7 @@
 
     <a>Você selecionou: {{albumDaVez.nome}}</a>
 
-    <a class='dropdown-button btn' href='#' data-activates='dropdown2'>Selecione o Álbum!</a>
+    <a class='dropdown-button btn red' href='#' data-activates='dropdown2'>Selecione o Álbum!</a>
 
   <div class="row">
   <!-- Dropdown Structure -->
