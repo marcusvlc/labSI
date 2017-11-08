@@ -73,8 +73,8 @@ app.controller("controlePrincipal",
 					if($scope.albumExisteNoSistema(Album)) {
 						Materialize.toast('O álbum > ' + Album.nome +  ' < já existe no sistema, tente outro!', 2000)
 					} else {
-						if(Album.ano == "") {
-							Album.ano = "Data não especificada"
+						if(Album.ano == "" || !Number.isInteger(Album.ano)) {
+							Album.ano = "Data não especificada ou incorreta"
 						}
 						
 						Album.dono = $scope.artistaDaVez.nome;
