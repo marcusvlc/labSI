@@ -7,6 +7,7 @@
 <script src="lib/angular/angular-ui-router.js"></script>
  <!-- Latest compiled and minified CSS -->
 <script src="js/init.js"> </script>
+<script type="text/javascript"></script>
 <script src="js/app/app.js"></script>
 <script src="js/app/controllers.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -16,8 +17,68 @@
 <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet"> 
 
 </head>
+
+
+<main class="container"> 
+<div class="row">
+  <div id="elementosdepesquisa">
+    <img src="img/search.png" width="40" height="40">
+    <h5>Pesquisar por Artista</h5>
+
+  </div>
+<input type="text" name="" ng-modeL="buscado.nome" placeholder="Digite o nome do artista">
+
+</div>
+
+
+<div class="row">
+<div class="row">
+  <!-- Modal Trigger -->
+ <a ng-click="abreAdicionarArtista()" class="waves-effect waves-light btn">+ Adicionar Artista</a>
+ <a ng-click="abreAdicionarAlbum()" class="waves-effect waves-light btn pink">+ Adicionar Álbum</a>
+ <a ng-click="abreAdicionarMusica()" class="waves-effect waves-light btn purple">+ Adicionar Música</a>
+
+</div>
+
+<table class="bordered">
+
+<thead>
+  <tr>
+    <th>Nome</th>
+    <th>Foto do Artista</th>
+    <th>Comentário sobre o artista</th>
+    <th>Nota do Artista</th>
+    <th>Ação</th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr ng-repeat="i in artistasCadastrados | filter:buscado">
+    <td>{{i.nome}}</td>
+    <td ng-click="abreListarAlbuns(i)"><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
+    <td>{{i.comentario}}</td>
+    <td>{{i.nota}}</td>
+    <td>
+      <button ng-click="editarArtista(i)" class="btn blue">Editar</button>
+      <button ng-click="removerArtista(i)" class="btn red">Remover</button>
+      <img ng-if="!i.ehFavorito" src="img/naofav.png" ng-click="favoritarArtista(i)" class="fav" width="50" height="50">
+      <img ng-if="i.ehFavorito" ng-click="desfavoritarArtista(i)" class="fav" src="img/fav.png" width="50" height="50">
+
+    </td>
+  </tr>
+</tbody>
+</table>
+
+<div id="elementosdeinfo"> 
+<i class="material-icons">album</i>
+<h5>Para visualizar os álbuns de um artista clique em sua foto</h5>
+</div>
+
+</div>
+
 
 <div>
 <!-- Estrutura modal para cadastrar/editar ARTISTAS -->
@@ -179,68 +240,6 @@
 
   </div>
 
-
-
-
-
-<main class="container"> 
-{{artistaDaVez}}
-{{albunsCadastrados}}
-<div class="row">
-  <div id="elementosdepesquisa">
-    <img src="img/search.png" width="40" height="40">
-    <h5>Pesquisar por Artista</h5>
-
-  </div>
-<input type="text" name="" ng-modeL="buscado.nome" placeholder="Digite o nome do artista">
-
-</div>
-
-
-<div class="row">
-<div class="row">
-  <!-- Modal Trigger -->
- <a ng-click="abreAdicionarArtista()" class="waves-effect waves-light btn">+ Adicionar Artista</a>
- <a ng-click="abreAdicionarAlbum()" class="waves-effect waves-light btn pink">+ Adicionar Álbum</a>
- <a ng-click="abreAdicionarMusica()" class="waves-effect waves-light btn purple">+ Adicionar Música</a>
-
-</div>
-
-<table class="bordered">
-
-<thead>
-  <tr>
-    <th>Nome</th>
-    <th>Foto do Artista</th>
-    <th>Comentário sobre o artista</th>
-    <th>Nota do Artista</th>
-    <th>Ação</th>
-  </tr>
-</thead>
-
-<tbody>
-  <tr ng-repeat="i in artistasCadastrados | filter:buscado">
-    <td>{{i.nome}}</td>
-    <td ng-click="abreListarAlbuns(i)"><img class="circle" alt="Imagem inválida" src="{{i.imagem}}" width="100" height="100"></td>
-    <td>{{i.comentario}}</td>
-    <td>{{i.nota}}</td>
-    <td>
-      <button ng-click="editarArtista(i)" class="btn blue">Editar</button>
-      <button ng-click="removerArtista(i)" class="btn red">Remover</button>
-      <img ng-if="!i.ehFavorito" src="img/naofav.png" ng-click="favoritarArtista(i)" class="fav" width="50" height="50">
-      <img ng-if="i.ehFavorito" ng-click="desfavoritarArtista(i)" class="fav" src="img/fav.png" width="50" height="50">
-
-    </td>
-  </tr>
-</tbody>
-</table>
-
-<div id="elementosdeinfo"> 
-<i class="material-icons">album</i>
-<h5>Para visualizar os álbuns de um artista clique em sua foto</h5>
-</div>
-
-</div>
 
 </main>
 

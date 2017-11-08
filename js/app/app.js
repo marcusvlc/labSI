@@ -13,14 +13,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
           url: '/home',
           templateUrl: 'paginas/home.html',
           controller: 'controlePrincipal',
-          reloadOnSearch: false
         };
         var playlistsState = {
           name: 'playlists',
           url: '/playlists',
           templateUrl: 'paginas/playlists.html',
           controller: 'playlistsctrl',
-          reloadOnSearch: false
         };
 
        	var favoritosState = {
@@ -28,7 +26,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
           url: '/favoritos',
           templateUrl: 'paginas/favoritos.html',
           controller: 'favoritosctrl',
-          reloadOnSearch: false
         };
 
         $stateProvider.state(homeState);
