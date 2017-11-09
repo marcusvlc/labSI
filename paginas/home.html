@@ -109,7 +109,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
+<a  class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
 
    <a ng-if="!editando" ng-click="addArtista(Artista)" class="waves-effect waves-light btn blue">Cadastrar</a>
    <a ng-if="editando" ng-click="salvarArtista(Artista)" class="waves-effect waves-light btn blue">Salvar</a>
@@ -141,17 +141,17 @@
 
     <a>Você selecionou: {{artistaDaVez.nome}}</a>
     <br>
-    <a class='dropdown-button btn red' href='#' data-activates='dropdown1'>Selecione o Artista!</a>
+    <a class='dropdown-button btn red' data-activates='dropdown1'>Selecione o Artista!</a>
 
   <!-- Dropdown Structure -->
   <ul id='dropdown1' class='dropdown-content'>
-    <li ng-repeat="x in artistasCadastrados" ng-click="setArtistaDaVez(x)"><a href="#!">{{x.nome}}</a></li>
+    <li ng-repeat="x in artistasCadastrados" ng-click="setArtistaDaVez(x)"><a>{{x.nome}}</a></li>
   </ul>
 
 </div>
 </div>
 <div class="modal-footer">
-<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray" ng-click="resetArtistaDaVez()">Cancelar</a>
+<a class="modal-action modal-close waves-effect waves-green btn gray" ng-click="resetArtistaDaVez()">Cancelar</a>
 
    <a ng-click="addAlbum(Album)" class="waves-effect waves-light btn blue">Cadastrar</a>
 </div>
@@ -179,12 +179,12 @@
 
     <a>Você selecionou: {{albumDaVez.nome}}</a>
 
-    <a class='dropdown-button btn red' href='#' data-activates='dropdown2'>Selecione o Álbum!</a>
+    <a class='dropdown-button btn red' data-activates='dropdown2'>Selecione o Álbum!</a>
 
   <div class="row">
   <!-- Dropdown Structure -->
   <ul id='dropdown2' class='dropdown-content'>
-    <li ng-repeat="x in albunsCadastrados" ng-click="setAlbumDaVez(x)"><a href="#!">{{x.nome}}</a></li>
+    <li ng-repeat="x in albunsCadastrados" ng-click="setAlbumDaVez(x)"><a>{{x.nome}}</a></li>
   </ul>
 
 </div>
@@ -197,7 +197,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray" ng-click="resetAlbumDaVez()">Cancelar</a>
+<a class="modal-action modal-close waves-effect waves-green btn gray" ng-click="resetAlbumDaVez()">Cancelar</a>
 
    <a ng-click="addMusica(Musica)" class="waves-effect waves-light btn blue">Cadastrar</a>
 </div>
@@ -241,7 +241,7 @@
   </div>
 
   <div>
-<!-- Estrutura modal para cadastrar/editar ARTISTAS -->
+<!-- Estrutura modal para selecionar ultima musica ouvida -->
 <div id="modalmusica" class="modal modal-fixed-footer">
 <div class="modal-content">
 <h4 >↪ Selecione a última música que você ouviu</h4>
@@ -252,9 +252,9 @@
     <div>
           <h5>Você selecionou a música: {{musicaDaVez.nome}}</h5>
           <div class="row">
-          <a class='dropdown-button btn red' href='#' data-activates='dropdown3'>Selecione a última música que você ouviu!</a>
+          <a class='dropdown-button btn red' data-activates='dropdown3'>Selecione a última música que você ouviu!</a>
             <ul id='dropdown3' class='dropdown-content'>
-              <li ng-repeat="x in musicasListadas" ng-click="setMusicaDaVez(x)"><a href="#!">{{x.nome}}</a></li>
+              <li ng-repeat="x in musicasListadas" ng-click="setMusicaDaVez(x)"><a>{{x.nome}}</a></li>
             </ul>
             <br><br><br>
             <h5>Ao clicar em salvar, você selecionará: {{musicaDaVez.nome}}<br> como a última música ouvida do artista {{artistaDaVez.nome}}</h5>
@@ -265,7 +265,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
+<a class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
 
    <a ng-click="salvarUltimaMusicaOuvida()" class="waves-effect waves-light btn blue">Salvar</a>
 </div>
