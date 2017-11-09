@@ -19,6 +19,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet"> 
 
 </head>
 
@@ -244,16 +245,20 @@
 <div id="modalmusica" class="modal modal-fixed-footer">
 <div class="modal-content">
 <h4 >↪ Selecione a última música que você ouviu</h4>
-<p>Aqui estarão listadas todas as músicas do artista {{artistaDaVez.nome}}</p>
+<p>Aqui estarão listadas todas as músicas do artista {{artistaDaVez.nome}} <br> Atualmente, a última música ouvida deste artista é: {{artistaDaVez.ultimaMusica}}</p>
+
 
 <div class="row">
     <div>
+          <h5>Você selecionou a música: {{musicaDaVez.nome}}</h5>
           <div class="row">
           <a class='dropdown-button btn red' href='#' data-activates='dropdown3'>Selecione a última música que você ouviu!</a>
             <ul id='dropdown3' class='dropdown-content'>
-              <li ng-repeat="x in artistaDaVez.albuns.musicas" ng-click="setMusicaDaVez(x)"><a href="#!">{{x.nome}}</a></li>
+              <li ng-repeat="x in musicasListadas" ng-click="setMusicaDaVez(x)"><a href="#!">{{x.nome}}</a></li>
             </ul>
-
+            <br><br><br>
+            <h5>Ao clicar em salvar, você selecionará: {{musicaDaVez.nome}}<br> como a última música ouvida do artista {{artistaDaVez.nome}}</h5>
+            <br>
         </div>
     </div>
 
@@ -262,7 +267,7 @@
 <div class="modal-footer">
 <a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
 
-   <a ng-click="" class="waves-effect waves-light btn blue">Salvar</a>
+   <a ng-click="salvarUltimaMusicaOuvida()" class="waves-effect waves-light btn blue">Salvar</a>
 </div>
 </div>
 

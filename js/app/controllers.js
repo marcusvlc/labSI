@@ -16,21 +16,41 @@ app.controller("controlePrincipal",
 
 		$scope.artistaExisteNoSistema = false;
 		$scope.editando = false;
-		$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[],  nota:"0"};
+		$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[],  nota:"0", ultimaMusica:""};
 		$scope.albumDaVez = {nome: "", imagem: "", ano: "", musicas:[], dono:""};
+		$scope.musicaDaVez = {nome: "", albumNome:"", ano: "", duracao:""};
+
+		$scope.setMusicaDaVez = function(Musica) {
+			$scope.musicaDaVez = Musica;
+		}
 
 		$scope.abrirModalMusica = function(Artista) {
-			$scope.albunsListados = Artista.albuns;
+			$scope.musicasListadas = [];
 
-			// CONCERTAR O CODIGO PARA LISTAR MUSICAS DE UM ARTISTA.
-			// for (var i = albunsListados.length - 1; i >= 0; i--) {
-			// 	for (var j = albunsListados[i].musicas.length - 1; j>= 0; j--) {
-			// 		musicasListadas.push(j);
-			// 	}
-			// }
+			$scope.resetArtistaDaVez();
+			$scope.resetMusicaDaVez();
+
+
+			for (var i = Artista.albuns.length - 1; i >= 0; i--) {
+				for (var j = Artista.albuns[i].musicas.length - 1; j >= 0; j--) {
+					$scope.musicasListadas.push(Artista.albuns[i].musicas[j]);
+				}
+			}
 
 			$scope.artistaDaVez = Artista;
 			$('#modalmusica').modal('open');
+		}
+
+		$scope.salvarUltimaMusicaOuvida = function() {
+			if($scope.musicaDaVez.nome != "") {
+				$scope.artistaDaVez.ultimaMusica = $scope.musicaDaVez.nome;
+				Materialize.toast('A música: > ' + $scope.musicaDaVez.nome + ' < agora é sua última música ouvida do artista ' + $scope.artistaDaVez.nome, 2000)
+				$('#modalmusica').modal('close');
+			} else {
+				Materialize.toast('Você precisa selecionar uma música antes!', 2000)
+			}
+			
+
 		}
 
 		$scope.abreListarAlbuns = function(Artista) {
@@ -49,7 +69,12 @@ app.controller("controlePrincipal",
 		}
 
 		$scope.resetArtistaDaVez = function() {
-			$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[],  nota:"0"};
+			$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[],  nota:"0", ultimaMusica:""};
+
+		}
+
+		$scope.resetMusicaDaVez = function() {
+			$scope.musicaDaVez = {nome: "", albumNome:"", ano: "", duracao:""};
 
 		}
 
@@ -254,7 +279,7 @@ app.controller("controlePrincipal",
 		};
 
 		var limparFormulario = function() {
-			$scope.Artista = {nome: "", imagem: "", comentario: "", albuns:[],  nota:"0"};
+			$scope.Artista = {nome: "", imagem: "", comentario: "", albuns:[],  nota:"0", ultimaMusica:""};
 			$scope.artistaExisteNoSistema = false;
 
 		};
