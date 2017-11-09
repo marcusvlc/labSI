@@ -22,9 +22,7 @@
 
 </head>
 
-
 <main class="container"> 
-
 <div class="row">
   <div id="elementosdepesquisa">
     <img src="img/search.png" width="40" height="40">
@@ -68,6 +66,7 @@
       <button ng-click="removerArtista(i)" class="btn red">Remover</button>
       <img ng-if="!i.ehFavorito" src="img/naofav.png" ng-click="favoritarArtista(i)" class="fav" width="50" height="50">
       <img ng-if="i.ehFavorito" ng-click="desfavoritarArtista(i)" class="fav" src="img/fav.png" width="50" height="50">
+      <img ng-click="abrirModalMusica(i)" src="img/music.png" width="50" height="50">
 
     </td>
   </tr>
@@ -203,9 +202,6 @@
 </div>
 </div>
 
-
-
-
   <!-- Modal Para listar Albuns -->
   <div id="modal3" class="modal bottom-sheet">
     <div id="infoartista" class="modal-content">
@@ -235,12 +231,42 @@
         </div>
       </ul>
     </div>
+
     </div>
     <div class="modal-footer">
       <a ng-click="resetArtistaDaVez()" class="modal-action modal-close waves-effect waves-green btn blue">Fechar</a>
     </div>
 
   </div>
+
+  <div>
+<!-- Estrutura modal para cadastrar/editar ARTISTAS -->
+<div id="modalmusica" class="modal modal-fixed-footer">
+<div class="modal-content">
+<h4 >↪ Selecione a última música que você ouviu</h4>
+<p>Aqui estarão listadas todas as músicas do artista {{artistaDaVez.nome}}</p>
+
+<div class="row">
+    <div>
+          <div class="row">
+          <a class='dropdown-button btn red' href='#' data-activates='dropdown3'>Selecione a última música que você ouviu!</a>
+            <ul id='dropdown3' class='dropdown-content'>
+              <li ng-repeat="x in artistaDaVez.albuns.musicas" ng-click="setMusicaDaVez(x)"><a href="#!">{{x.nome}}</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+</div>
+</div>
+<div class="modal-footer">
+<a href="#!" class="modal-action modal-close waves-effect waves-green btn gray">Cancelar</a>
+
+   <a ng-click="" class="waves-effect waves-light btn blue">Salvar</a>
+</div>
+</div>
+
+
 
 
 </main>

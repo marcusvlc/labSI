@@ -2,10 +2,6 @@ app.controller("controlePrincipal",
 
 	function($scope, $rootScope, todoListService) {
 
-		$scope.teste = function() {
-			todoListService.adicionaAlguem({nome: "pfvai", imagem: "" , comentario: "", ehFavorito: false, albuns:[],  nota:"0"});
-		}
-
 
 		$scope.titulo = "Home";
 
@@ -14,6 +10,7 @@ app.controller("controlePrincipal",
 		$scope.albunsCadastrados = todoListService.albunsCadastrados;
 		$scope.artistasFavoritados = todoListService.artistasFavoritados;
 		$scope.albunsListados = [];
+		$scope.musicasListadas = [];
 		$scope.musicasCadastradas = todoListService.musicasCadastradas;
 
 
@@ -21,6 +18,20 @@ app.controller("controlePrincipal",
 		$scope.editando = false;
 		$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[],  nota:"0"};
 		$scope.albumDaVez = {nome: "", imagem: "", ano: "", musicas:[], dono:""};
+
+		$scope.abrirModalMusica = function(Artista) {
+			$scope.albunsListados = Artista.albuns;
+
+			// CONCERTAR O CODIGO PARA LISTAR MUSICAS DE UM ARTISTA.
+			// for (var i = albunsListados.length - 1; i >= 0; i--) {
+			// 	for (var j = albunsListados[i].musicas.length - 1; j>= 0; j--) {
+			// 		musicasListadas.push(j);
+			// 	}
+			// }
+
+			$scope.artistaDaVez = Artista;
+			$('#modalmusica').modal('open');
+		}
 
 		$scope.abreListarAlbuns = function(Artista) {
 			$scope.albunsListados = Artista.albuns;
