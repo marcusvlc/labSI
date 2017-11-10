@@ -46,11 +46,11 @@ input {
 	float: left;
 }
 
-h5 {
+.letrasmusica h5 {
 
 	font-family: 'Libre Baskerville', serif;
 	color: #ee6e73;
-	font-weight: bold;
+	font-weight: bolder;
 }
 
 #elementosdepesquisa h5 {

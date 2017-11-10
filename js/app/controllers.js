@@ -2,23 +2,103 @@ app.controller("controlePrincipal",
 
 	function($scope, $rootScope, todoListService) {
 
-
-		$scope.titulo = "Home";
-
 		$scope.artistasCadastrados = todoListService.artistasCadastrados;
-
+		$scope.playlistsCadastradas = todoListService.playlistsCadastradas;
 		$scope.albunsCadastrados = todoListService.albunsCadastrados;
 		$scope.artistasFavoritados = todoListService.artistasFavoritados;
 		$scope.albunsListados = [];
 		$scope.musicasListadas = [];
 		$scope.musicasCadastradas = todoListService.musicasCadastradas;
-
-
 		$scope.artistaExisteNoSistema = false;
 		$scope.editando = false;
 		$scope.artistaDaVez = {nome: "", imagem: "" , comentario: "", ehFavorito: false, albuns:[],  nota:"0", ultimaMusica:""};
 		$scope.albumDaVez = {nome: "", imagem: "", ano: "", musicas:[], dono:""};
 		$scope.musicaDaVez = {nome: "", albumNome:"", ano: "", duracao:""};
+		$scope.playlistDaVez = {nome:"", musicas:[]};
+
+		$scope.removerMusicaPlaylist = function(Playlist, Musica) {
+			var click = confirm("Deseja excluir a música " + Musica.nome + " da playlist " + Playlist.nome + " ?");
+
+			if(click) {
+				for (var i = Playlist.musicas.length - 1; i >= 0; i--) {
+					if(Playlist.musicas[i] == Musica) {
+						Playlist.musicas.splice(i, 1);
+						Materialize.toast('A música ' + Musica.nome + ' foi removida com sucesso!', 2000)
+					}
+				}
+			}
+		}
+
+		$scope.addMusicaNaPlaylist = function() {
+			if(musicaExisteNaPlaylist($scope.playlistDaVez, $scope.musicaDaVez)) {
+				Materialize.toast('A música ' + $scope.musicaDaVez.nome + ' já existe nessa playlist, tente outra!', 2000)
+			} else {
+				$scope.playlistDaVez.musicas.push($scope.musicaDaVez);
+				Materialize.toast('A música ' + $scope.musicaDaVez.nome + ' foi adicionada com sucesso na sua playlist!', 2000)
+				$scope.resetMusicaDaVez();
+				$scope.resetPlaylistDaVez();
+				$('#modaladdmusicaplaylist').modal('close');
+			}
+		}
+
+		var musicaExisteNaPlaylist = function(Playlist, Musica) {
+			var temMusica = false;
+			for (var i = Playlist.musicas.length - 1; i >= 0; i--) {
+				if(Playlist.musicas[i] == Musica) {
+					temMusica = true;
+				}
+			}
+
+			return temMusica;
+		}
+
+		$scope.cadastrarPlayList = function(Playlist) {
+			if(checaPlayListNoSistema(Playlist)) {
+				Materialize.toast('A playlist ' + Playlist.nome + ' já existe no sistema, tente cadastrar outra!', 2000)
+			} else {
+				$scope.playlistsCadastradas.push(Playlist);
+				$('#modalplaylists').modal('close');
+				Materialize.toast('A playlist ' + Playlist.nome + ' foi cadastrada com sucesso! Agora é só adicionar músicas!', 2000)
+			}
+		}
+
+		$scope.removerPlayList = function(Playlist) {
+			var click = confirm("Deseja excluir a playlist " + Playlist.nome + "?");
+
+			if(click) {
+				for (var i = $scope.playlistsCadastradas.length - 1; i >= 0; i--) {
+				if($scope.playlistsCadastradas[i] == Playlist) {
+					$scope.playlistsCadastradas.splice(i, 1);
+					Materialize.toast('A playlist ' + Playlist.nome + ' foi removida com sucesso!', 2000)
+					}
+				}
+
+			}
+
+		}
+
+		var checaPlayListNoSistema = function(Playlist) {
+			var existePlaylist = false;
+			for (var i = $scope.playlistsCadastradas.length - 1; i >= 0; i--) {
+				if($scope.playlistsCadastradas[i].nome == Playlist.nome) {
+					existePlaylist = true;
+				}
+			}
+
+			return existePlaylist;
+		}
+
+		$scope.abrirModalPlaylist = function() {
+			$scope.Playlist = {nome: "", musicas:[]};
+			$('#modalplaylists').modal('open');
+
+		}
+
+		$scope.abrirModalMusicaPlayList = function(Playlist) {
+			$scope.resetMusicaDaVez();
+			$('#modaladdmusicaplaylist').modal('open');
+			$scope.playlistDaVez = Playlist;
+		}
 
 		$scope.setMusicaDaVez = function(Musica) {
 			$scope.musicaDaVez = Musica;
@@ -73,6 +153,10 @@ app.controller("controlePrincipal",
 
 		}
 
+		$scope.resetPlaylistDaVez = function() {
+			$scope.playlistDaVez = {nome:"", musicas:[]};
+		}
+
 		$scope.resetMusicaDaVez = function() {
 			$scope.musicaDaVez = {nome: "", albumNome:"", ano: "", duracao:""};
 
@@ -84,7 +168,7 @@ app.controller("controlePrincipal",
 		}
 
 		$scope.addMusica = function(Musica) {
-			if(Musica.nome == "" || Musica.ano == "" || Musica.duracao == "" ) {
+			if(Musica.nome == "" || Musica.ano == "" || Musica.duracao == "" || $scope.albumDaVez.nome == "" ) {
 				Materialize.toast('Alguma informação está incorreta, tente novamente!', 2000)
 			} else {
 				if($scope.musicaExisteNoSistema(Musica)) {
@@ -299,20 +383,3 @@ app.controller("controlePrincipal",
 	});
 
 
-app.controller('playlistsctrl', function($scope, $rootScope, $location)
-{
-	$scope.message = "Estou na pagina de playlists";
-   $rootScope.activetab = $location.path();
-   $scope.titulo = "PlayLists";
-});
-
-
-// app.controller('homectrl', function($scope){
-// 	$scope.message = 'Pagina home';
-// });
-// app.controller('playlistsctrl', function($scope){
-// 	$scope.message = 'Pagina playlists';
-// });
-app.controller('favoritosctrl', function($scope){
-	$scope.message = 'Pagina favoritos';
-});
